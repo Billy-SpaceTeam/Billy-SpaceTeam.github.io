@@ -12,18 +12,18 @@ const font = Plus_Jakarta_Sans({
 
 // Les balises SEO pour Google
 export const metadata: Metadata = {
-  title: "Clément PILI | Electronique et Systèmes Embarqués",
-  description: "Portfolio de Clément PILI. Étudiant en Génie Électrique et Informatique Industrielle (GEII). Découvrez mes projets en systèmes embarqués, électronique",
-  keywords: ["Clément PILI", "Portfolio", "Ingénieur", "Systèmes Embarqués", "Électronique", "Développeur", "GEII", "PILI", "IUT Annecy"],
-  authors: [{ name: "Clément PILI" }],
-  creator: "Clément PILI",
+  title: "Billy | Nano-satellite CubeSat de Billy Space Team",
+  description: "Billy est un nano-satellite CubeSat innovant développé par l'équipe Billy Space Team de l'IUT d'Annecy. Découvrez notre projet d'ingénierie spatiale.",
+  keywords: ["Billy", "Satellite", "CubeSat", "Space Team", "IUT Annecy", "Système embarqué", "Aérospatiale"],
+  authors: [{ name: "Billy Space Team" }],
+  creator: "Billy Space Team",
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    url: "https://c-pili.github.io",
-    title: "Clément PILI | Portfolio",
-    description: "Ingenierie en Electronique et Systeme Embarquée",
-    siteName: "Clément PILI Portfolio",
+    url: "https://billy-spaceTeam.github.io",
+    title: "Billy | Nano-satellite CubeSat",
+    description: "Nano-satellite CubeSat développé par l'équipe Billy Space Team",
+    siteName: "Billy Space Team",
   },
   verification: {
     google: "CcibHALtcBpTLM5VpbHHn4KyQexIEnQzrXj7ujuK-pQ",

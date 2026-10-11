@@ -1,270 +1,434 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
-import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
+
+const container: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      delayChildren: 0.2,
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const item: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 15,
+    },
+  },
+};
+
+const glowAnimation: any = {
+  boxShadow: [
+    "0 0 20px rgba(59, 130, 246, 0.3)",
+    "0 0 40px rgba(59, 130, 246, 0.6)",
+    "0 0 20px rgba(59, 130, 246, 0.3)",
+  ],
+  transition: {
+    duration: 2,
+    repeat: Infinity,
+    ease: "easeInOut",
+  },
+};
 
 export default function Home() {
-    const [hovered, setHovered] = useState<number | null>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-    const projects = [
-        {
-            title: "Billy",
-            src: "/IMG_Billy.png",
-            href: "/projets/billy",
-            category: "Systèmes Embarqués",
-            desc: "Un nano-satellite CubeSat innovant développé par l'équipe Billy Space Team de l'IUT d'Annecy.",
-        },
-    ];
-
-    // Animation pour l'apparition en cascade des projets
-    const containerVariants: any = {
-        hidden: { opacity: 0 },
-        show: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.15,
-            },
-        },
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
     };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-    const itemVariants: any = {
-        hidden: { opacity: 0, y: 40 },
-        show: {
-            opacity: 1,
-            y: 0,
-            transition: { duration: 0.7, ease: "easeOut" }
-        },
-    };
-
-    return (
-        <main className= "min-h-screen bg-[#FBFBFD] text-slate-900 antialiased selection:bg-blue-100 selection:text-blue-900 overflow-hidden" >
-
-        {/* 1. Hero Section Épurée */ }
-        < section className = "max-w-5xl mx-auto px-6 pt-24 pb-20 md:pt-32 md:pb-24" >
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-10" >
-
-                <motion.div
-            initial={ { opacity: 0, y: 20 } }
-    animate = {{ opacity: 1, y: 0 }
-}
-transition = {{ duration: 0.7, ease: "easeOut" }}
-className = "flex-1 space-y-6"
-    >
-    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-200 bg-emerald-50/70 text-emerald-800 text-xs font-medium tracking-wide" >
-        <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-            Recherche de Stage - Laboratoire d'Électronique et de Microélectronique
-                </div>
-
-                < h1 className = "text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-950 leading-[1.12]" >
-                    Clément PILI < br />
-                        <span className="text-slate-600 font-semibold text-2xl sm:text-3xl lg:text-4xl block mt-2" >
-                            Électronique & Systèmes Embarqués
-                                </span>
-                                </h1>
-
-                                < p className = "text-base sm:text-lg text-slate-600 max-w-xl leading-relaxed font-normal" >
-                                    Passionné par les systèmes nécessitant de l'électronique embarquée et communicante. Je conçois des solutions matérielles et logicielles innovantes.
-                                        </p>
-
-                                        < div className = "flex items-center gap-4 pt-2" >
-                                            <Link
-                href="#projets"
-className = "px-6 py-3 rounded-full bg-slate-950 text-white font-medium text-sm hover:bg-slate-800 transition shadow-sm active:scale-95"
-    >
-    Découvrir mes projets
-        </Link>
+  return (
+    <main className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 min-h-screen text-white overflow-hidden">
+      {/* Navigation */}
+      <nav className={`fixed top-0 w-full z-40 transition-all duration-300 ${isScrolled ? "bg-slate-900/95 backdrop-blur-md shadow-lg" : "bg-transparent"}`}>
+        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2">
+            <span className="text-2xl font-bold text-transparent bg-gradient-to-r from-blue-300 to-cyan-300 bg-clip-text">🛰️ Billy</span>
+          </Link>
+          <div className="hidden md:flex gap-8 items-center">
+            <Link href="#about" className="text-slate-300 hover:text-white transition">À propos</Link>
+            <Link href="#architecture" className="text-slate-300 hover:text-white transition">Architecture</Link>
+            <Link href="#team" className="text-slate-300 hover:text-white transition">Équipe</Link>
+            <Link href="/contact" className="px-6 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold hover:shadow-lg transition">Contact</Link>
+          </div>
         </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="relative h-screen flex items-center justify-center overflow-hidden pt-20">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <motion.div
+            className="absolute top-20 left-10 w-96 h-96 bg-blue-600/30 rounded-full blur-3xl"
+            animate={{
+              x: [0, 100, 0],
+              y: [0, 50, 0],
+            }}
+            transition={{
+              duration: 15,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+          <motion.div
+            className="absolute bottom-20 right-10 w-96 h-96 bg-cyan-600/20 rounded-full blur-3xl"
+            animate={{
+              x: [0, -100, 0],
+              y: [0, -50, 0],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        </div>
+
+        {/* Content */}
+        <motion.div
+          className="relative z-10 text-center max-w-4xl mx-auto px-6"
+          variants={container}
+          initial="hidden"
+          animate="visible"
+        >
+          {/* Logo/Badge */}
+          <motion.div variants={item} className="mb-6">
+            <motion.div
+              className="inline-block px-6 py-3 rounded-full bg-blue-500/20 border border-blue-400/50 backdrop-blur-md"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <span className="text-sm font-semibold text-blue-300">
+                🛰️ CubeSat Innovant
+              </span>
+            </motion.div>
+          </motion.div>
+
+          {/* Title */}
+          <motion.h1
+            variants={item}
+            className="text-6xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-200 via-cyan-200 to-blue-300 bg-clip-text text-transparent"
+          >
+            Billy
+          </motion.h1>
+
+          {/* Subtitle */}
+          <motion.p
+            variants={item}
+            className="text-xl md:text-2xl text-slate-300 mb-8 max-w-2xl mx-auto leading-relaxed"
+          >
+            Un nano-satellite CubeSat innovant développé par l'équipe Billy Space Team de l'IUT d'Annecy
+          </motion.p>
+
+          {/* CTA Button */}
+          <motion.div
+            variants={item}
+            className="flex gap-4 justify-center flex-wrap"
+          >
+            <motion.a
+              href="#about"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              className="px-8 py-4 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 font-semibold text-white shadow-lg hover:shadow-blue-500/50 transition-all cursor-pointer"
+            >
+              Découvrir le projet
+            </motion.a>
+            <motion.a
+              href="#team"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              className="px-8 py-4 rounded-lg bg-white/10 backdrop-blur-md border border-white/20 font-semibold text-white hover:bg-white/20 transition-all cursor-pointer"
+            >
+              L'équipe
+            </motion.a>
+          </motion.div>
         </motion.div>
 
-        < motion.div
-initial = {{ opacity: 0, scale: 0.9 }}
-animate = {{ opacity: 1, scale: 1 }}
-transition = {{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-className = "relative shrink-0 mx-auto md:mx-0"
-    >
-    <div className="h-44 w-44 sm:h-52 sm:w-52 rounded-2xl overflow-hidden border-2 border-white shadow-[0_12px_30px_rgba(0,0,0,0.08)] bg-slate-100 ring-1 ring-slate-200/80" >
-        <img
-                src="/IMG_Profile.JPG"
-onError = {(e) => {
-    (e.target as HTMLElement).setAttribute("src", "/IMG_Accueil.jpg");
-}}
-alt = "Clément PILI"
-className = "h-full w-full object-cover"
-    />
-    </div>
-    </motion.div>
-    </div>
-    </section>
+        {/* Scroll Indicator */}
+        <motion.div
+          className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <svg className="w-6 h-6 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </motion.div>
+      </section>
 
-{/* 2. SECTION : À propos de moi */ }
-<section className="max-w-5xl mx-auto px-6 py-20 border-t border-slate-200/60 overflow-hidden" >
-    <div className="flex flex-col md:flex-row items-center gap-12" >
+      {/* About Section */}
+      <section id="about" className="py-20 px-6 relative">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: false, amount: 0.3 }}
+            className="mb-16"
+          >
+            <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-200 via-cyan-200 to-blue-300 bg-clip-text text-transparent">
+              À Propos du Projet
+            </h2>
+            <div className="h-1 w-20 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full" />
+          </motion.div>
 
-        <motion.div 
-            initial={ { opacity: 0, x: -40 } }
-whileInView = {{ opacity: 1, x: 0 }}
-viewport = {{ once: true, margin: "-100px" }}
-transition = {{ duration: 0.7, ease: "easeOut" }}
-className = "flex-1"
-    >
-    <span className="text-xs font-mono uppercase tracking-widest text-blue-600 font-semibold" > Présentation </span>
-        < h2 className = "text-3xl font-bold tracking-tight text-slate-950 mt-1 mb-6" > À propos de moi </h2>
-            < div className = "space-y-4 text-slate-600 leading-relaxed" >
-                <p>
-                Actuellement étudiant en deuxième année de BUT GEII à l'Université Savoie Mont Blanc, je me spécialise dans l'Électronique des Systèmes Embarqués(ESE).
-              </p>
-                    <p>
-                Mon approche associe la conception matérielle(schématiques, routage de PCB sur Altium Designer) et le développement logiciel(C, C++, Python, Qt) pour donner vie à des systèmes autonomes et intelligents.J'aime particulièrement relever des défis techniques qui lient l'électronique de précision au code embarqué.
-              </p>
-    </div>
-    </motion.div>
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            {/* Left Content */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: false, amount: 0.3 }}
+              className="space-y-6"
+            >
+              <motion.div
+                className="p-6 rounded-xl bg-white/10 backdrop-blur-md border border-white/20"
+                whileHover={{
+                  backgroundColor: "rgba(255, 255, 255, 0.15)",
+                  borderColor: "rgba(255, 255, 255, 0.4)",
+                }}
+                transition={{ duration: 0.3 }}
+              >
+                <h3 className="text-2xl font-semibold text-blue-300 mb-3">
+                  Description Synthétique
+                </h3>
+                <p className="text-slate-300 leading-relaxed">
+                  Billy est le nom de notre maquette de satellite. Il s'agit d'un système embarqué communicant conçu pour récolter des données télémé­­triques de vol, transmettre ses mesures en temps réel et assurer un contrôle d'attitude autonome.
+                </p>
+              </motion.div>
 
-    < motion.div
-initial = {{ opacity: 0, x: 40, filter: "blur(10px)" }}
-whileInView = {{ opacity: 1, x: 0, filter: "blur(0px)" }}
-viewport = {{ once: true, margin: "-100px" }}
-transition = {{ duration: 0.8, ease: "easeOut" }}
-className = "flex-1 w-full"
-    >
-    <div className="rounded-3xl overflow-hidden shadow-lg border border-slate-200/60 bg-slate-100 h-80 relative group" >
-        <img 
-                src="/IMG_Apropos.jpg"
-onError = {(e) => {
-    (e.target as HTMLElement).setAttribute("src", "/IMG_Pres.jpg");
-}}
-alt = "Clément au travail"
-className = "w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-    />
-    </div>
-    </motion.div>
-
-    </div>
-    </section>
-
-{/* 3. SECTION : Médias (Photo & Vidéo) juste avant les projets */ }
-<section className="bg-white py-20 border-y border-slate-200/60" >
-    <div className="max-w-5xl mx-auto px-6" >
-        <div className="flex flex-col md:flex-row gap-6" >
-
-        {/* Une belle photo d'action / de projet */ }
-            < motion.div
-initial = {{ opacity: 0, scale: 0.9, y: 30 }}
-whileInView = {{ opacity: 1, scale: 1, y: 0 }}
-viewport = {{ once: true, margin: "-50px" }}
-transition = {{ duration: 0.6, ease: "easeOut" }}
-className = "flex-1 h-72 md:h-96 rounded-3xl overflow-hidden shadow-md group relative bg-slate-100"
-    >
-    <img 
-                src="/IMG_Action.jpg"
-onError = {(e) => {
-    (e.target as HTMLElement).setAttribute("src", "/IMG_Pres_2.jpg");
-}}
-alt = "En pleine conception"
-className = "w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-    />
-    </motion.div>
-
-{/* Un lecteur Vidéo fluide et muet (style background dynamique) */ }
-<motion.div 
-              initial={ { opacity: 0, scale: 0.9, y: 30 } }
-whileInView = {{ opacity: 1, scale: 1, y: 0 }}
-viewport = {{ once: true, margin: "-50px" }}
-transition = {{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-className = "flex-1 h-72 md:h-96 rounded-3xl overflow-hidden shadow-md group relative bg-slate-900 border border-slate-800"
-    >
-{/* REMARQUE : Placez une vidéo courte dans public/Video_Projet.mp4 */ }
-    < video
-src = "/VID_MAIN-2.mp4"
-autoPlay
-loop
-muted
-playsInline
-className = "w-full h-full object-cover opacity-90 transition-opacity duration-700 group-hover:opacity-100"
-    />
-{/* Si la vidéo n'est pas trouvée, un message subtil s'affiche derrière */ }
-    < div className = "absolute inset-0 -z-10 flex items-center justify-center text-slate-500 text-sm font-mono" >
-        Vidéo introuvable
-            </div>
+              <motion.div
+                className="p-6 rounded-xl bg-white/10 backdrop-blur-md border border-white/20"
+                whileHover={{
+                  backgroundColor: "rgba(255, 255, 255, 0.15)",
+                  borderColor: "rgba(255, 255, 255, 0.4)",
+                }}
+                transition={{ duration: 0.3 }}
+              >
+                <h3 className="text-2xl font-semibold text-cyan-300 mb-3">
+                  Objectif
+                </h3>
+                <p className="text-slate-300 leading-relaxed">
+                  Concevoir un objet connecté capable de transmettre diverses données issues de capteurs via plusieurs protocoles de communication et réaliser une roue de réaction pour l'orientation autonome.
+                </p>
+              </motion.div>
             </motion.div>
 
-            </div>
-            </div>
-            </section>
-
-{/* 4. Section Projets (Animée en cascade / Stagger) */ }
-<section id="projets" className = "max-w-6xl mx-auto px-6 py-24" >
-    <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4" >
-        <div>
-        <span className="text-xs font-mono uppercase tracking-widest text-blue-600 font-semibold" >
-            Portfolio
-            </span>
-            < h2 className = "text-3xl font-bold tracking-tight text-slate-950 mt-1" >
-                Réalisations sélectionnées
-                    </h2>
-                    </div>
-                    < p className = "text-sm text-slate-500 max-w-xs font-light" >
-                        Cliquez sur un projet pour explorer son architecture technique et ses détails.
-          </p>
-                            </div>
-
-{/* Grille de cartes gérée par Framer Motion pour l'apparition en cascade */ }
-<motion.div 
-          variants={ containerVariants }
-initial = "hidden"
-whileInView = "show"
-viewport = {{ once: true, margin: "-100px" }}
-className = "grid grid-cols-1 md:grid-cols-3 gap-7"
-    >
-{
-    projects.map((project, index) => (
-        <motion.div variants= { itemVariants } key = { project.title } >
-        <Link
-                href={ project.href }
-                onMouseEnter = {() => setHovered(index)}
-onMouseLeave = {() => setHovered(null)}
-className = {
-    cn(
-                  "group relative rounded-2xl overflow-hidden bg-white border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full",
-        hovered !== null && hovered !== index && "opacity-60 scale-[0.99] filter blur-[0.5px]"
-                )}
+            {/* Right - Stats */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: false, amount: 0.3 }}
+              className="space-y-6"
+            >
+              <motion.div
+                className="p-8 rounded-2xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-400/30 backdrop-blur-md"
+                animate={glowAnimation}
               >
-    <div className="h-60 w-full overflow-hidden bg-slate-100 relative" >
-        <img
-                    src={ project.src }
-alt = { project.title }
-className = "h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
-    />
-    <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-mono text-slate-800 border border-slate-200/60 font-medium" >
-    { project.category }
-        </div>
-        </div>
-
-        < div className = "p-6 flex flex-col flex-1 justify-between bg-white" >
-            <div>
-            <h3 className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors" >
-            { project.title }
-                </h3>
-                < p className = "text-sm text-slate-600 mt-2 leading-relaxed font-normal" >
-                { project.desc }
-                    </p>
+                <div className="grid grid-cols-2 gap-6">
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    className="text-center"
+                  >
+                    <div className="text-4xl font-bold text-blue-300 mb-2">
+                      10×10×10
                     </div>
+                    <p className="text-sm text-slate-300">Dimensions (cm)</p>
+                  </motion.div>
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    className="text-center"
+                  >
+                    <div className="text-4xl font-bold text-cyan-300 mb-2">
+                      &lt;2kg
+                    </div>
+                    <p className="text-sm text-slate-300">Masse max</p>
+                  </motion.div>
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    className="text-center"
+                  >
+                    <div className="text-4xl font-bold text-blue-300 mb-2">
+                      6+
+                    </div>
+                    <p className="text-sm text-slate-300">Capteurs</p>
+                  </motion.div>
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    className="text-center"
+                  >
+                    <div className="text-4xl font-bold text-cyan-300 mb-2">
+                      3
+                    </div>
+                    <p className="text-sm text-slate-300">Modes</p>
+                  </motion.div>
+                </div>
+              </motion.div>
 
-                    < div className = "mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-mono text-slate-400 group-hover:text-blue-600 transition-colors" >
-                        <span>En savoir plus </span>
-                            < span className = "group-hover:translate-x-1 transition-transform" >→</span>
-                                </div>
-                                </div>
-                                </Link>
-                                </motion.div>
-          ))}
-</motion.div>
-    </section>
+              <motion.div
+                className="p-6 rounded-xl bg-white/10 backdrop-blur-md border border-white/20"
+                whileHover={{
+                  backgroundColor: "rgba(255, 255, 255, 0.15)",
+                  borderColor: "rgba(255, 255, 255, 0.4)",
+                }}
+              >
+                <h3 className="text-lg font-semibold text-slate-200 mb-3">
+                  Format CubeSat
+                </h3>
+                <p className="text-sm text-slate-400">
+                  Normes standardisées pour les nano-satellites compatibles avec les lanceurs commerciaux
+                </p>
+              </motion.div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
-{/* Footer */ }
-<Footer />
+      {/* Features Section */}
+      <section id="architecture" className="py-20 px-6 relative">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: false, amount: 0.3 }}
+            className="mb-16"
+          >
+            <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-200 via-cyan-200 to-blue-300 bg-clip-text text-transparent">
+              Fonctionnalités Clés
+            </h2>
+            <div className="h-1 w-20 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full" />
+          </motion.div>
+
+          <motion.div
+            className="grid md:grid-cols-3 gap-6"
+            variants={container}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.2 }}
+          >
+            {[
+              {
+                icon: "🎯",
+                title: "Orientation Automatique",
+                desc: "Asservissement via roue de réaction pour orienter le satellite vers le Soleil",
+              },
+              {
+                icon: "⚙️",
+                title: "Déploiement Motorisé",
+                desc: "Ouverture contrôlée des panneaux solaires par servomoteur",
+              },
+              {
+                icon: "📡",
+                title: "Télémétrie Multi-liaisons",
+                desc: "Communication UART/I2C, Internet et transmission sans fil",
+              },
+              {
+                icon: "🔋",
+                title: "Gestion d'Alimentation",
+                desc: "Écran LCD intégré et LEDs pour afficher l'état du système",
+              },
+              {
+                icon: "🛡️",
+                title: "Contraintes Mécaniques",
+                desc: "Redémarrage automatique en cas de perte d'alimentation",
+              },
+              {
+                icon: "📊",
+                title: "Multi-capteurs",
+                desc: "Température, pression, luminosité, gyroscope et plus",
+              },
+            ].map((feature, i) => (
+              <motion.div
+                key={i}
+                variants={item}
+                className="group p-6 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 hover:border-blue-400/50 transition-all duration-300"
+                whileHover={{
+                  backgroundColor: "rgba(255, 255, 255, 0.15)",
+                  y: -5,
+                }}
+              >
+                <motion.div
+                  className="text-4xl mb-4"
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 2, repeat: Infinity, delay: i * 0.1 }}
+                >
+                  {feature.icon}
+                </motion.div>
+                <h3 className="text-lg font-semibold text-blue-300 mb-2 group-hover:text-cyan-300 transition-colors">
+                  {feature.title}
+                </h3>
+                <p className="text-sm text-slate-400">{feature.desc}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section id="team" className="py-20 px-6 relative">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: false, amount: 0.3 }}
+            className="mb-16"
+          >
+            <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-200 via-cyan-200 to-blue-300 bg-clip-text text-transparent">
+              L'Équipe Billy Space Team
+            </h2>
+            <div className="h-1 w-20 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full" />
+            <p className="text-slate-300 mt-4 text-lg max-w-2xl">
+              Étudiants en BUT GEII à l'Université Savoie Mont Blanc, passionnés par l'aérospatiale et les systèmes embarqués innovants.
+            </p>
+          </motion.div>
+
+          <motion.div
+            className="text-center p-12 rounded-2xl bg-gradient-to-br from-blue-500/20 via-cyan-500/10 to-slate-900 border border-blue-400/30 backdrop-blur-md"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: false, amount: 0.5 }}
+            animate={glowAnimation}
+          >
+            <h3 className="text-4xl font-bold mb-4 text-white">
+              Rejoignez l'Adventure
+            </h3>
+            <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">
+              Intéressé par le projet Billy ? Contactez-nous pour plus d'informations sur notre équipe, nos objectifs et comment vous pouvez contribuer.
+            </p>
+            <motion.a
+              href="/contact"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-block px-8 py-4 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 font-semibold text-white shadow-lg hover:shadow-blue-500/50 transition-all"
+            >
+              Nous Contacter
+            </motion.a>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <Footer />
     </main>
   );
 }
