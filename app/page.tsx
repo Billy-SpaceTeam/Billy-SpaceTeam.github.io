@@ -11,25 +11,11 @@ export default function Home() {
 
     const projects = [
         {
-            title: "Gant Magique",
-            src: "/IMG_GantsMag.jpg",
-            href: "/projets/gant-magique",
-            category: "Électronique",
-            desc: "Dispositif de traitement de capteurs de flexion et pilotage d'actionneur.",
-        },
-        {
-            title: "Matrice LED",
-            src: "/IMG_MatriceLED.png",
-            href: "/projets/matrice-led",
-            category: "Informatique",
-            desc: "Programmation d'une Matrice LED avec un Arduino UNO.",
-        },
-        {
-            title: "Cellule Festo",
-            src: "/IMG_CelluleFesto.png",
-            href: "/projets/cellule-festo",
-            category: "Automatisme",
-            desc: "Réalisation d'un grafcet automatisé pour une chaîne de production.",
+            title: "Billy",
+            src: "/IMG_Billy.png",
+            href: "/projets/billy",
+            category: "Systèmes Embarqués",
+            desc: "Un nano-satellite CubeSat innovant développé par l'équipe Billy Space Team de l'IUT d'Annecy.",
         },
     ];
 

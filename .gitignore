@@ -1,0 +1,12 @@
+# Cache Visual Studio
+.vs/
+*.slnx
+*.suo
+
+# Dépendances Node.js (ne JAMAIS push ce dossier)
+node_modules/
+
+# Builds Next.js
+.next/
+out/
+build/
