@@ -44,7 +44,6 @@ export default function RootLayout({
         {children}
 
         {/* Le dock flottant s'affiche sur chaque page */}
-        <BottomDock />
       </body>
     </html>
   );
