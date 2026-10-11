@@ -46,13 +46,6 @@ export function Navbar() {
             </Link>
           ))}
         </div>
-
-        <Link
-          href="#contact"
-          className="rounded-full bg-white text-neutral-900 px-4 py-1.5 text-xs font-semibold hover:bg-neutral-200 transition active:scale-95 shadow-sm"
-        >
-          Me contacter
-        </Link>
       </nav>
     </header>
   );
