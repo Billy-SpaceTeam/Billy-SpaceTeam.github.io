@@ -1,78 +1,70 @@
-import React from "react";
 import Link from "next/link";
 
 export function Footer() {
     return (
-        <footer className= "w-full bg-[#111318] text-neutral-300 pt-20 pb-36 px-6 border-t border-neutral-800" >
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12" >
-        {/* Marque / Signature */ }
-            < div className = "md:col-span-5 space-y-4" >
-                <div className="flex items-center gap-3" >
-                    <span className="font-bold text-2xl tracking-tighter text-white font-mono uppercase" >
-                        Clément PILI
-                        </span>
-                        </div>
-                        < p className = "text-sm text-neutral-400 max-w-sm leading-relaxed" >
-                            Ingénierie en electronique et systèmes embarqués
-          </p>
-                                < div className = "pt-2" >
-                                    <a
-              href="mailto:Clement.pili@etu.univ-smb.fr"
-    className = "font-mono text-sm tracking-wide text-neutral-200 hover:text-white underline underline-offset-4 decoration-neutral-600 hover:decoration-blue-500 transition-all"
-        >
-        Clement.pili@etu.univ-smb.fr
-            </a>
-            </div>
-            </div>
+        <footer className= "bg-[#0f1115] border-t border-slate-800/60 pt-16 pb-8 text-slate-400" >
+        <div className="max-w-6xl mx-auto px-6" >
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16" >
+            {/* Colonne 1 : Présentation */ }
+                < div className = "md:col-span-2" >
+                    <span className="text-xl font-bold text-white tracking-tight block mb-2 uppercase" >
+                        BILLY SPACE TEAM
+                            </span>
+                            < p className = "text-sm mb-6 max-w-sm leading-relaxed" >
+                                Projet de nano - satellite CubeSat développé par les étudiants en BUT GEII à l'IUT d'Annecy(Université Savoie Mont Blanc).
+            </p>
+                                    </div>
 
-    {/* Colonnes de liens */ }
-    <div className="md:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8 text-xs font-mono tracking-wider uppercase" >
-        <div>
-        <span className="text-neutral-500 block mb-4" >— Navigation </span>
-            < ul className = "space-y-3" >
-                <li>
-                <Link href="/" className = "hover:text-white transition" > Accueil </Link>
-                    </li>
-                    < li >
-                    <Link href="#projets" className = "hover:text-white transition" > Projets </Link>
+    {/* Colonne 2 : Navigation */ }
+    <div>
+        <h4 className="text-xs font-mono text-slate-500 mb-4 uppercase tracking-widest" >
+              — Navigation
+        </h4>
+        < ul className = "space-y-3 text-sm" >
+            <li>
+            <Link href="/" className = "hover:text-white transition-colors" >
+                Accueil
+                </Link>
+                </li>
+                < li >
+                <Link href="#about" className = "hover:text-white transition-colors" >
+                    À propos
+                        </Link>
                         </li>
-                        { /* Contact */ }
-                            </ul>
-                            </div>
+                        < li >
+                        <Link href="#team" className = "hover:text-white transition-colors" >
+                            L'Équipe
+                                </Link>
+                                </li>
+                                </ul>
+                                </div>
 
-                            < div >
-                            <span className="text-neutral-500 block mb-4" >— Réalisations </span>
-                                < ul className = "space-y-3" >
-                                    <li>
-                                    <Link href="/projets/gant-magique" className = "hover:text-white transition" > Gant Magique </Link>
-                                        </li>
-                                        < li >
-                                        <Link href="/projets/matrice-led" className = "hover:text-white transition" > Matrice LED </Link>
-                                            </li>
-                                            < li >
-                                            <Link href="/projets/cellule-festo" className = "hover:text-white transition" > Cellule Festo </Link>
-                                                </li>
-                                                </ul>
-                                                </div>
+    {/* Colonne 3 : Réseaux */ }
+    <div>
+        <h4 className="text-xs font-mono text-slate-500 mb-4 uppercase tracking-widest" >
+              — Réseaux
+        </h4>
+        < ul className = "space-y-3 text-sm" >
+            <li>
+            <a
+                  href="https://github.com/Billy-SpaceTeam"
+    target = "_blank"
+    rel = "noopener noreferrer"
+    className = "hover:text-white transition-colors"
+        >
+        GitHub
+        </a>
+        </li>
+        </ul>
+        </div>
+        </div>
 
-                                                < div >
-                                                <span className="text-neutral-500 block mb-4" >— Réseaux </span>
-                                                    < ul className = "space-y-3" >
-                                                        <li>
-                                                        <a href="https://github.com/c-pili" target = "_blank" rel = "noopener noreferrer" className = "hover:text-white transition" > GitHub </a>
-                                                            </li>
-                                                            < li >
-                                                            <a href="https://www.linkedin.com/in/cl%C3%A9ment-pili/" target = "_blank" rel = "noopener noreferrer" className = "hover:text-white transition" > LinkedIn </a>
-                                                                </li>
-                                                                </ul>
-                                                                </div>
-                                                                </div>
-                                                                </div>
-
-                                                                < div className = "max-w-6xl mx-auto mt-16 pt-8 border-t border-neutral-800/80 flex flex-col sm:flex-row items-center justify-between text-xs text-neutral-400 gap-4 font-mono" >
-                                                                    <p>© { new Date().getFullYear() } Clément PILI — Tous droits réservés.</p>
-                                                                        < p className = "text-neutral-400" > Conçu avec Next.js & Tailwind CSS </p>
-                                                                            </div>
-                                                                            </footer>
+    {/* Copyright */ }
+    <div className="pt-8 border-t border-slate-800/60 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500" >
+        <p>© { new Date().getFullYear() } Billy Space Team — Tous droits réservés.</p>
+            < p > Conçu avec Next.js & Tailwind CSS </p>
+                </div>
+                </div>
+                </footer>
   );
 }
