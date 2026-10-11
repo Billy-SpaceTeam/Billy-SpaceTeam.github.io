@@ -3,9 +3,9 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 
-const container = {
+const container: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -16,7 +16,7 @@ const container = {
   },
 };
 
-const item = {
+const item: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
@@ -29,18 +29,16 @@ const item = {
   },
 };
 
-const glowAnimation = {
-  animate: {
-    boxShadow: [
-      "0 0 20px rgba(59, 130, 246, 0.3)",
-      "0 0 40px rgba(59, 130, 246, 0.6)",
-      "0 0 20px rgba(59, 130, 246, 0.3)",
-    ],
-    transition: {
-      duration: 2,
-      repeat: Infinity,
-      ease: "easeInOut",
-    },
+const glowAnimation: any = {
+  boxShadow: [
+    "0 0 20px rgba(59, 130, 246, 0.3)",
+    "0 0 40px rgba(59, 130, 246, 0.6)",
+    "0 0 20px rgba(59, 130, 246, 0.3)",
+  ],
+  transition: {
+    duration: 2,
+    repeat: Infinity,
+    ease: "easeInOut",
   },
 };
 
@@ -255,8 +253,7 @@ export default function BillyPage() {
             >
               <motion.div
                 className="p-8 rounded-2xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-400/30 backdrop-blur-md"
-                variants={glowAnimation}
-                animate="animate"
+                animate={glowAnimation}
               >
                 <div className="grid grid-cols-2 gap-6">
                   <motion.div
@@ -655,8 +652,7 @@ export default function BillyPage() {
             transition={{ duration: 0.6 }}
             viewport={{ once: false, amount: 0.5 }}
             className="text-center p-12 rounded-2xl bg-gradient-to-br from-blue-500/20 via-cyan-500/10 to-slate-900 border border-blue-400/30 backdrop-blur-md"
-            variants={glowAnimation}
-            animate="animate"
+            animate={glowAnimation}
           >
             <h2 className="text-4xl font-bold mb-4 text-white">
               Suivez le Projet Billy
