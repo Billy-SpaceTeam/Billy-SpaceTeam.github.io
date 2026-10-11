@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import React from "react";
-import { BottomDock } from "@/components/BottomDock";
 import { PageLoader } from "@/components/PageLoader";
 
 const font = Plus_Jakarta_Sans({
