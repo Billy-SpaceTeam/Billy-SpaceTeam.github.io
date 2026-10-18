@@ -107,15 +107,6 @@ export default function Home() {
           initial="hidden"
           animate="visible"
         >
-          {/* Logo/Badge */}
-          <motion.div variants={item} className="mb-6">
-            <motion.div
-              className="inline-block px-6 py-3 rounded-full bg-blue-500/20 border border-blue-400/50 backdrop-blur-md"
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-            </motion.div>
-          </motion.div>
 
           {/* Title */}
           <motion.h1
