@@ -65,7 +65,7 @@ export default function Home() {
             <Link href="#about" className="text-slate-300 hover:text-white transition">À propos</Link>
             <Link href="#architecture" className="text-slate-300 hover:text-white transition">Architecture</Link>
             <Link href="#team" className="text-slate-300 hover:text-white transition">Équipe</Link>
-            <Link href="/contact" className="px-6 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold hover:shadow-lg transition">Contact</Link>
+            <Link href="/connection" className="px-6 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold hover:shadow-lg transition">Connection</Link>
           </div>
         </div>
       </nav>
