@@ -11,7 +11,7 @@ export function Footer() {
                         BILLY SPACE TEAM
                             </span>
                             < p className = "text-sm mb-6 max-w-sm leading-relaxed" >
-                                Projet de nano - satellite CubeSat développé par les étudiants en BUT GEII à l'IUT d'Annecy(Université Savoie Mont Blanc).
+                                Projet de maquette de nanosatellite CubeSat développé par 2 étudiants en BUT GEII à l'IUT d'Annecy (Université Savoie Mont Blanc).
             </p>
                                     </div>
 

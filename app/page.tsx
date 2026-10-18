@@ -318,10 +318,10 @@ export default function Home() {
 
           <motion.div
             className="grid md:grid-cols-3 gap-6"
-            variants={container}
+            //variants={container}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0.2 }}
+            //viewport={{ once: false, amount: 0.2 }}
           >
             {[
               {
