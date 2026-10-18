@@ -114,9 +114,6 @@ export default function Home() {
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <span className="text-sm font-semibold text-blue-300">
-                🛰️ CubeSat Innovant
-              </span>
             </motion.div>
           </motion.div>
 
