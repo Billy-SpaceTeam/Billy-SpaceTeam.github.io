@@ -315,13 +315,12 @@ export default function Home() {
             </h2>
             <div className="h-1 w-20 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full" />
           </motion.div>
-
-          <motion.div
+<motion.div
             className="grid md:grid-cols-3 gap-6"
-            //variants={container}
+            variants={container}
             initial="hidden"
             whileInView="visible"
-            //viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: false, amount: 0.2 }}
           >
             {[
               {
@@ -364,13 +363,10 @@ export default function Home() {
                   y: -5,
                 }}
               >
-                <motion.div
-                  className="text-4xl mb-4"
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 2, repeat: Infinity, delay: i * 0.1 }}
-                >
+                {/* Icône rendue 100% statique ici */}
+                <div className="text-4xl mb-4">
                   {feature.icon}
-                </motion.div>
+                </div>
                 <h3 className="text-lg font-semibold text-blue-300 mb-2 group-hover:text-cyan-300 transition-colors">
                   {feature.title}
                 </h3>
@@ -380,7 +376,6 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
-
       {/* Team Section */}
       <section id="team" className="py-20 px-6 relative">
         <div className="max-w-6xl mx-auto">
