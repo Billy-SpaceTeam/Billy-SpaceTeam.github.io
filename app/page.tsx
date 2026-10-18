@@ -240,7 +240,6 @@ export default function Home() {
             >
               <motion.div
                 className="p-8 rounded-2xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-400/30 backdrop-blur-md"
-                animate={glowAnimation}
               >
                 <div className="grid grid-cols-2 gap-6">
                   <motion.div
@@ -399,30 +398,6 @@ export default function Home() {
             <p className="text-slate-300 mt-4 text-lg max-w-2xl">
               Étudiants en BUT GEII à l'Université Savoie Mont Blanc, passionnés par l'aérospatiale et les systèmes embarqués innovants.
             </p>
-          </motion.div>
-
-          <motion.div
-            className="text-center p-12 rounded-2xl bg-gradient-to-br from-blue-500/20 via-cyan-500/10 to-slate-900 border border-blue-400/30 backdrop-blur-md"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: false, amount: 0.5 }}
-            animate={glowAnimation}
-          >
-            <h3 className="text-4xl font-bold mb-4 text-white">
-              Rejoignez l'Adventure
-            </h3>
-            <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">
-              Intéressé par le projet Billy ? Contactez-nous pour plus d'informations sur notre équipe, nos objectifs et comment vous pouvez contribuer.
-            </p>
-            <motion.a
-              href="/contact"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-block px-8 py-4 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 font-semibold text-white shadow-lg hover:shadow-blue-500/50 transition-all"
-            >
-              Nous Contacter
-            </motion.a>
           </motion.div>
         </div>
       </section>
